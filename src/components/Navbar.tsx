@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Github, Mail, Send } from "lucide-react";
 
 const socials = [
-  { icon: Send, label: "TG", href: "#" },
+  { icon: Send, label: "TG", href: "https://t.me/ambitias" },
   { icon: Mail, label: "GM", href: "#" },
   { icon: Github, label: "GH", href: "#" },
 ];
