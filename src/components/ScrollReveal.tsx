@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 interface ScrollRevealProps {
@@ -10,24 +10,18 @@ interface ScrollRevealProps {
 
 const ScrollReveal = ({ children, className = "", delay = 0, blur = true }: ScrollRevealProps) => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.95", "start 0.5"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [60, 0]);
-  const filter = useTransform(scrollYProgress, [0, 1], blur ? ["blur(12px)", "blur(0px)"] : ["blur(0px)", "blur(0px)"]);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      style={{
-        opacity,
-        y,
-        filter,
-        transitionDelay: `${delay}s`,
+      initial={{ opacity: 0, y: 60, filter: blur ? "blur(12px)" : "blur(0px)" }}
+      animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+      transition={{
+        duration: 0.9,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
       }}
     >
       {children}
