@@ -13,14 +13,15 @@ const ZoomOnScroll = ({ children, className = "" }: ZoomOnScrollProps) => {
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1.05]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0.6]);
+  const scale = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.6, 1.05, 1.05, 0.85]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.7, 1], [0, 1, 1, 0.3]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [8, 0, 0, -5]);
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      style={{ scale, opacity }}
+      style={{ scale, opacity, rotateX, perspective: 1000 }}
     >
       {children}
     </motion.div>

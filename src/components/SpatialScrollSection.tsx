@@ -1,23 +1,155 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const SpatialWord = ({ word, index, scrollYProgress }: { word: string; index: number; scrollYProgress: any }) => {
-  const y = useTransform(scrollYProgress, [0, 1], [80 * (index + 1), -40 * (index + 1)]);
-  const opacity = useTransform(scrollYProgress, [0.1 + index * 0.1, 0.3 + index * 0.1, 0.7, 0.9], [0, 1, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [0.1 + index * 0.1, 0.4 + index * 0.1], [0.85, 1]);
+const TunnelRing = ({
+  scrollYProgress,
+  offset,
+  index,
+}: {
+  scrollYProgress: any;
+  offset: number;
+  index: number;
+}) => {
+  const ringZ = useTransform(scrollYProgress, [0, 1], [-400 - index * 600, 1200]);
+  const ringOpacity = useTransform(
+    scrollYProgress,
+    [offset, offset + 0.08, offset + 0.3, offset + 0.45],
+    [0, 0.12, 0.12, 0]
+  );
+  const ringScale = useTransform(scrollYProgress, [offset, offset + 0.4], [0.2, 3]);
 
   return (
-    <motion.span
-      className="text-display text-foreground/10 block"
+    <motion.div
+      className="absolute border border-muted-foreground/20 rounded-none"
       style={{
-        y,
+        width: 300,
+        height: 300,
+        z: ringZ,
+        opacity: ringOpacity,
+        scale: ringScale,
+      }}
+    />
+  );
+};
+
+const ScrollIndicator = ({ scrollYProgress }: { scrollYProgress: any }) => {
+  const opacity = useTransform(scrollYProgress, [0, 0.05, 0.15], [1, 1, 0]);
+  return (
+    <motion.p className="absolute bottom-8 font-mono-label" style={{ opacity }}>
+      Scroll to enter
+    </motion.p>
+  );
+};
+
+const layers = [
+  { text: "AMBITION", depth: 800 },
+  { text: "STARTS", depth: 1600 },
+  { text: "HERE", depth: 2400 },
+];
+
+const ZLayer = ({
+  text,
+  depth,
+  scrollYProgress,
+}: {
+  text: string;
+  depth: number;
+  scrollYProgress: any;
+}) => {
+  const startAppear = depth / 4000;
+  const endDisappear = Math.min(startAppear + 0.35, 1);
+  
+  const z = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-depth, depth * 0.8]
+  );
+  const opacity = useTransform(
+    scrollYProgress,
+    [
+      Math.max(startAppear - 0.05, 0),
+      startAppear + 0.08,
+      endDisappear - 0.1,
+      endDisappear,
+    ],
+    [0, 1, 1, 0]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [startAppear, endDisappear],
+    [0.5, 2.5]
+  );
+
+  return (
+    <motion.div
+      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+      style={{ z, opacity, scale }}
+    >
+      <span
+        className="text-display text-foreground/[0.07] whitespace-nowrap select-none"
+        style={{ fontSize: "clamp(4rem, 14vw, 12rem)" }}
+      >
+        {text}
+      </span>
+    </motion.div>
+  );
+};
+
+const FloatingShape = ({
+  scrollYProgress,
+  startOffset,
+  x,
+  y,
+  size,
+  type,
+}: {
+  scrollYProgress: any;
+  startOffset: number;
+  x: string;
+  y: string;
+  size: number;
+  type: "square" | "line" | "dot";
+}) => {
+  const z = useTransform(scrollYProgress, [0, 1], [-600 - startOffset * 1000, 800]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [startOffset, startOffset + 0.1, startOffset + 0.5, startOffset + 0.7],
+    [0, 0.3, 0.3, 0]
+  );
+  const scale = useTransform(scrollYProgress, [startOffset, startOffset + 0.5], [0.3, 1.8]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 180 * (startOffset > 0.3 ? -1 : 1)]);
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{
+        left: x,
+        top: y,
+        z,
         opacity,
         scale,
-        fontSize: "clamp(3rem, 12vw, 9rem)",
+        rotateZ: rotate,
       }}
     >
-      {word}
-    </motion.span>
+      {type === "square" && (
+        <div
+          className="border border-muted-foreground/30"
+          style={{ width: size, height: size }}
+        />
+      )}
+      {type === "line" && (
+        <div
+          className="bg-muted-foreground/20"
+          style={{ width: 1, height: size }}
+        />
+      )}
+      {type === "dot" && (
+        <div
+          className="rounded-full bg-primary/20"
+          style={{ width: size, height: size }}
+        />
+      )}
+    </motion.div>
   );
 };
 
@@ -25,42 +157,55 @@ const SpatialScrollSection = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end end"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [50, -150]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [150, -50]);
-  const scale1 = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.1, 0.95]);
-  const scale2 = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.9, 1.05]);
-  const rotate1 = useTransform(scrollYProgress, [0, 1], [0, -3]);
-  const rotate2 = useTransform(scrollYProgress, [0, 1], [0, 2]);
-
-  const words = ["WEALTH", "VISION", "EMPIRE"];
+  // Center crosshair that pulses
+  const crosshairOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 0.15, 0.15, 0]);
+  const crosshairScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 1.5]);
 
   return (
-    <section
-      ref={ref}
-      className="relative py-48 md:py-64 overflow-hidden"
-      style={{ perspective: "1200px" }}
-    >
-      <motion.div
-        className="absolute top-1/4 left-[10%] w-48 h-48 border border-border opacity-20"
-        style={{ y: y1, scale: scale1, rotateZ: rotate1 }}
-      />
-      <motion.div
-        className="absolute top-1/3 right-[15%] w-32 h-32 bg-primary/5"
-        style={{ y: y2, scale: scale2, rotateZ: rotate2 }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 left-[20%] w-px h-64 bg-muted-foreground/10"
-        style={{ y: y3 }}
-      />
+    <section ref={ref} className="relative h-[400vh]">
+      <div
+        className="sticky top-0 h-screen overflow-hidden flex items-center justify-center"
+        style={{ perspective: "1000px", perspectiveOrigin: "50% 50%" }}
+      >
+        {/* Center crosshair */}
+        <motion.div
+          className="absolute z-10 flex items-center justify-center"
+          style={{ opacity: crosshairOpacity, scale: crosshairScale }}
+        >
+          <div className="w-px h-16 bg-muted-foreground/30 absolute" />
+          <div className="h-px w-16 bg-muted-foreground/30 absolute" />
+        </motion.div>
 
-      <div className="relative z-10 px-6 md:px-16 flex flex-col items-center gap-8">
-        {words.map((word, i) => (
-          <SpatialWord key={word} word={word} index={i} scrollYProgress={scrollYProgress} />
+        {/* Text layers flying through z-axis */}
+        {layers.map((layer) => (
+          <ZLayer
+            key={layer.text}
+            text={layer.text}
+            depth={layer.depth}
+            scrollYProgress={scrollYProgress}
+          />
         ))}
+
+        {/* Floating geometric shapes at different depths */}
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.05} x="15%" y="20%" size={80} type="square" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.15} x="75%" y="30%" size={120} type="line" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.25} x="25%" y="70%" size={60} type="square" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.35} x="80%" y="65%" size={10} type="dot" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.1} x="60%" y="15%" size={6} type="dot" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.45} x="10%" y="45%" size={150} type="line" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.3} x="85%" y="80%" size={40} type="square" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.5} x="45%" y="85%" size={8} type="dot" />
+        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.2} x="50%" y="10%" size={100} type="line" />
+
+        {/* Tunnel rings */}
+        {[0.1, 0.25, 0.4, 0.55, 0.7].map((offset, i) => (
+          <TunnelRing key={i} scrollYProgress={scrollYProgress} offset={offset} index={i} />
+        ))}
+
+        <ScrollIndicator scrollYProgress={scrollYProgress} />
       </div>
     </section>
   );
