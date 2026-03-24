@@ -20,7 +20,7 @@ const pillars = [
 
 const PillarsSection = () => {
   return (
-    <section className="py-32 md:py-48 px-6 md:px-16">
+    <section id="pillars" className="py-32 md:py-48 px-6 md:px-16">
       <ScrollReveal>
         <p className="font-mono-label mb-16">002 — The Pillars</p>
       </ScrollReveal>
