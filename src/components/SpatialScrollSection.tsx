@@ -11,12 +11,16 @@ const TunnelRing = ({
   index: number;
 }) => {
   const ringZ = useTransform(scrollYProgress, [0, 1], [-400 - index * 600, 1200]);
+  const fadeIn = Math.min(offset + 0.08, 1);
+  const holdEnd = Math.min(offset + 0.25, 1);
+  const fadeOut = Math.min(offset + 0.35, 1);
   const ringOpacity = useTransform(
     scrollYProgress,
-    [offset, offset + 0.08, offset + 0.3, offset + 0.45],
+    [offset, fadeIn, holdEnd, fadeOut],
     [0, 0.12, 0.12, 0]
   );
-  const ringScale = useTransform(scrollYProgress, [offset, offset + 0.4], [0.2, 3]);
+  const scaleEnd = Math.min(offset + 0.3, 1);
+  const ringScale = useTransform(scrollYProgress, [offset, scaleEnd], [0.2, 3]);
 
   return (
     <motion.div
