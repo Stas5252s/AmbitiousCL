@@ -201,39 +201,11 @@ const SpatialScrollSection = () => {
         <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.2} x="50%" y="10%" size={100} type="line" />
 
         {/* Tunnel rings */}
-        {[0.1, 0.25, 0.4, 0.55, 0.7].map((offset, i) => {
-          const ringZ = useTransform(scrollYProgress, [0, 1], [-400 - i * 600, 1200]);
-          const ringOpacity = useTransform(
-            scrollYProgress,
-            [offset, offset + 0.08, offset + 0.3, offset + 0.45],
-            [0, 0.12, 0.12, 0]
-          );
-          const ringScale = useTransform(scrollYProgress, [offset, offset + 0.4], [0.2, 3]);
+        {[0.1, 0.25, 0.4, 0.55, 0.7].map((offset, i) => (
+          <TunnelRing key={i} scrollYProgress={scrollYProgress} offset={offset} index={i} />
+        ))}
 
-          return (
-            <motion.div
-              key={i}
-              className="absolute border border-muted-foreground/20 rounded-none"
-              style={{
-                width: 300,
-                height: 300,
-                z: ringZ,
-                opacity: ringOpacity,
-                scale: ringScale,
-              }}
-            />
-          );
-        })}
-
-        {/* Scroll indicator */}
-        <motion.p
-          className="absolute bottom-8 font-mono-label"
-          style={{
-            opacity: useTransform(scrollYProgress, [0, 0.05, 0.15], [1, 1, 0]),
-          }}
-        >
-          Scroll to enter
-        </motion.p>
+        <ScrollIndicator scrollYProgress={scrollYProgress} />
       </div>
     </section>
   );
