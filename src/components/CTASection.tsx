@@ -23,7 +23,7 @@ const CTASection = () => {
       <ScrollReveal delay={0.3}>
         <a
           href="#"
-          className="inline-block font-mono-label px-10 py-4 bg-primary text-primary-foreground btn-fill-hover transition-colors duration-500"
+          className="inline-block font-mono-label px-10 py-4 border border-foreground text-foreground btn-fill-hover transition-colors duration-500"
         >
           Initiate Application
         </a>

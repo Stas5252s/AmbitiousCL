@@ -9,7 +9,7 @@ const ManifestoSection = () => {
   ];
 
   return (
-    <section className="py-32 md:py-48 px-6 md:px-16">
+    <section id="manifesto" className="py-32 md:py-48 px-6 md:px-16">
       <ScrollReveal>
         <p className="font-mono-label mb-12">001 — Manifesto</p>
       </ScrollReveal>

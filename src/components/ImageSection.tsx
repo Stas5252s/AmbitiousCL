@@ -4,7 +4,7 @@ import ZoomOnScroll from "./ZoomOnScroll";
 
 const ImageSection = () => {
   return (
-    <section className="py-32 md:py-48 px-6 md:px-16">
+    <section id="network" className="py-32 md:py-48 px-6 md:px-16">
       <ScrollReveal>
         <p className="font-mono-label mb-16">003 — The Network</p>
       </ScrollReveal>
