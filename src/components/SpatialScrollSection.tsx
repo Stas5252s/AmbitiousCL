@@ -111,12 +111,16 @@ const FloatingShape = ({
   type: "square" | "line" | "dot";
 }) => {
   const z = useTransform(scrollYProgress, [0, 1], [-600 - startOffset * 1000, 800]);
+  const fadeEnd = Math.min(startOffset + 0.1, 1);
+  const holdEnd = Math.min(startOffset + 0.4, 1);
+  const disappearEnd = Math.min(startOffset + 0.55, 1);
   const opacity = useTransform(
     scrollYProgress,
-    [startOffset, startOffset + 0.1, startOffset + 0.5, startOffset + 0.7],
+    [startOffset, fadeEnd, holdEnd, disappearEnd],
     [0, 0.3, 0.3, 0]
   );
-  const scale = useTransform(scrollYProgress, [startOffset, startOffset + 0.5], [0.3, 1.8]);
+  const scaleEnd = Math.min(startOffset + 0.4, 1);
+  const scale = useTransform(scrollYProgress, [startOffset, scaleEnd], [0.3, 1.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 180 * (startOffset > 0.3 ? -1 : 1)]);
 
   return (
