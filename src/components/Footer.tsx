@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Github, Mail, Send } from "lucide-react";
 
 const socials = [
-  { icon: Send, label: "Telegram", href: "#" },
+  { icon: Send, label: "Telegram", href: "https://t.me/ambitias" },
   { icon: Mail, label: "Gmail", href: "#" },
   { icon: Github, label: "GitHub", href: "#" },
 ];
