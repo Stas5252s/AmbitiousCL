@@ -1,5 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Github, Mail, Send } from "lucide-react";
+
+const socials = [
+  { icon: Send, label: "Telegram", href: "#" },
+  { icon: Mail, label: "Gmail", href: "#" },
+  { icon: Github, label: "GitHub", href: "#" },
+];
 
 const Footer = () => {
   const ref = useRef(null);
@@ -24,17 +31,35 @@ const Footer = () => {
         </span>
       </motion.div>
 
-      <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-        <div>
-          <p className="font-mono-label mb-2">© 2025 Ambitious</p>
-          <p className="text-muted-foreground text-sm">
-            We build. We earn. We lead.
-          </p>
+      <div className="relative z-10 flex flex-col gap-16">
+        {/* Social buttons — prominent */}
+        <div className="flex flex-wrap gap-4">
+          {socials.map((s, i) => (
+            <motion.a
+              key={s.label}
+              href={s.href}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="group flex items-center gap-3 px-6 py-4 border border-border hover:border-foreground transition-colors duration-300"
+            >
+              <s.icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+              <span className="font-mono-label group-hover:text-foreground transition-colors">
+                {s.label}
+              </span>
+            </motion.a>
+          ))}
         </div>
-        <div className="flex gap-8">
-          <a href="#" className="font-mono-label hover:text-foreground transition-colors">Instagram</a>
-          <a href="#" className="font-mono-label hover:text-foreground transition-colors">Discord</a>
-          <a href="#" className="font-mono-label hover:text-foreground transition-colors">X</a>
+
+        {/* Bottom row */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+          <div>
+            <p className="font-mono-label mb-2">© 2025 Ambitious</p>
+            <p className="text-muted-foreground text-sm">
+              We build. We earn. We lead.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

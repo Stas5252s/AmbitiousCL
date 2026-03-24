@@ -1,4 +1,11 @@
 import { motion } from "framer-motion";
+import { Github, Mail, Send } from "lucide-react";
+
+const socials = [
+  { icon: Send, label: "TG", href: "#" },
+  { icon: Mail, label: "GM", href: "#" },
+  { icon: Github, label: "GH", href: "#" },
+];
 
 const Navbar = () => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -20,7 +27,9 @@ const Navbar = () => {
       >
         AMBITIOUS
       </a>
-      <div className="flex items-center gap-8">
+
+      <div className="flex items-center gap-6">
+        {/* Nav links - hidden on mobile */}
         <a
           href="#manifesto"
           onClick={(e) => handleClick(e, "manifesto")}
@@ -42,6 +51,22 @@ const Navbar = () => {
         >
           Network
         </a>
+
+        {/* Social icons */}
+        <div className="hidden md:flex items-center gap-1 ml-2 border-l border-border pl-4">
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={s.label}
+            >
+              <s.icon className="w-4 h-4" />
+            </a>
+          ))}
+        </div>
+
+        {/* Apply button */}
         <a
           href="#apply"
           onClick={(e) => handleClick(e, "apply")}
