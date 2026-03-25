@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
-import { Github, Mail, Send } from "lucide-react";
+import { Github, Mail, Send, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const socials = [
   { icon: Send, label: "TG", href: "https://t.me/ambitis" },
+  { icon: MessageCircle, label: "DC", href: "#" },
   { icon: Mail, label: "GM", href: "#" },
   { icon: Github, label: "GH", href: "#" },
 ];
@@ -29,49 +31,20 @@ const Navbar = () => {
       </a>
 
       <div className="flex items-center gap-6">
-        {/* Nav links - hidden on mobile */}
-        <a
-          href="#manifesto"
-          onClick={(e) => handleClick(e, "manifesto")}
-          className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer"
-        >
-          Manifesto
-        </a>
-        <a
-          href="#pillars"
-          onClick={(e) => handleClick(e, "pillars")}
-          className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer"
-        >
-          Pillars
-        </a>
-        <a
-          href="#network"
-          onClick={(e) => handleClick(e, "network")}
-          className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer"
-        >
-          Network
-        </a>
+        <a href="#manifesto" onClick={(e) => handleClick(e, "manifesto")} className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer">Manifesto</a>
+        <a href="#pillars" onClick={(e) => handleClick(e, "pillars")} className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer">Pillars</a>
+        <a href="#network" onClick={(e) => handleClick(e, "network")} className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer">Network</a>
+        <Link to="/contact" className="hidden md:block font-mono-label hover:text-foreground transition-colors cursor-pointer">Contact</Link>
 
-        {/* Social icons */}
         <div className="hidden md:flex items-center gap-1 ml-2 border-l border-border pl-4">
           {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label={s.label}
-            >
+            <a key={s.label} href={s.href} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label={s.label}>
               <s.icon className="w-4 h-4" />
             </a>
           ))}
         </div>
 
-        {/* Apply button */}
-        <a
-          href="#apply"
-          onClick={(e) => handleClick(e, "apply")}
-          className="font-mono-label px-5 py-2.5 border border-foreground text-foreground btn-fill-hover transition-colors cursor-pointer"
-        >
+        <a href="#apply" onClick={(e) => handleClick(e, "apply")} className="font-mono-label px-5 py-2.5 border border-foreground text-foreground btn-fill-hover transition-colors cursor-pointer">
           Apply Now
         </a>
       </div>
