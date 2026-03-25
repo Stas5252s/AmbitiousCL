@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
 import ManifestoSection from "@/components/ManifestoSection";
 import PillarsSection from "@/components/PillarsSection";
+import StatsSection from "@/components/StatsSection";
 import HorizontalReveal from "@/components/HorizontalReveal";
 import SpatialScrollSection from "@/components/SpatialScrollSection";
 import StickyTextReveal from "@/components/StickyTextReveal";
@@ -18,6 +19,7 @@ const Index = () => {
       <MarqueeStrip />
       <ManifestoSection />
       <PillarsSection />
+      <StatsSection />
       <HorizontalReveal />
       <SpatialScrollSection />
       <StickyTextReveal />
