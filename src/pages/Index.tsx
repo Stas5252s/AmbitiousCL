@@ -7,11 +7,11 @@ import StatsSection from "@/components/StatsSection";
 import MorphingDivider from "@/components/MorphingDivider";
 import HorizontalReveal from "@/components/HorizontalReveal";
 import SpatialScrollSection from "@/components/SpatialScrollSection";
-import TextDistortion from "@/components/TextDistortion";
 import StickyTextReveal from "@/components/StickyTextReveal";
 import ImageSection from "@/components/ImageSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import SectionTransition from "@/components/SectionTransition";
 
 const Index = () => {
   return (
@@ -19,15 +19,19 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <MarqueeStrip />
+      <SectionTransition variant="converge" />
       <ManifestoSection />
       <MorphingDivider />
       <PillarsSection />
+      <SectionTransition variant="slash" />
       <StatsSection />
       <HorizontalReveal />
+      <SectionTransition variant="diamond" />
       <SpatialScrollSection />
-      <TextDistortion />
       <StickyTextReveal />
+      <SectionTransition variant="converge" />
       <ImageSection />
+      <SectionTransition variant="wipe" />
       <CTASection />
       <Footer />
     </div>

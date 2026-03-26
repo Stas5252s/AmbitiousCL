@@ -33,7 +33,7 @@ const Navbar = () => {
         onClick={(e) => handleClick(e, "top")}
         className="flex items-center gap-2 text-foreground font-bold text-lg tracking-tight cursor-pointer"
       >
-        <img src={logoImg} alt="Ambitious logo" className="w-7 h-7 invert" />
+        <img src={logoImg} alt="Ambitious logo" className="w-7 h-7" />
         AMBITIOUS
       </a>
 
