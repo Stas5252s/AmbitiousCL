@@ -72,7 +72,7 @@ const ManifestoSection = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end center"],
+    offset: ["start 0.7", "end 0.3"],
   });
 
   const lines = [
@@ -82,10 +82,8 @@ const ManifestoSection = () => {
     "it's an advantage.",
   ];
 
-  // Distribute lines across scroll progress
   const lineCount = lines.length;
 
-  // Decorative line that grows on scroll
   const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const labelOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
@@ -95,7 +93,6 @@ const ManifestoSection = () => {
         001 — Manifesto
       </motion.p>
 
-      {/* Decorative progress line */}
       <motion.div
         className="h-px bg-primary/30 mb-12"
         style={{ width: lineWidth }}
