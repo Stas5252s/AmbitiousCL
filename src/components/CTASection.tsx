@@ -21,16 +21,19 @@ const CTASection = () => {
   const btnY = useTransform(scrollYProgress, [0.45, 0.65], [30, 0]);
 
   const accentScale = useTransform(scrollYProgress, [0.2, 0.7], [0, 1]);
-  const accentOpacity = useTransform(scrollYProgress, [0.2, 0.5, 0.9, 1], [0, 0.04, 0.04, 0]);
+  const accentOpacity = useTransform(scrollYProgress, [0.2, 0.5, 0.9, 1], [0, 0.06, 0.06, 0]);
 
   return (
-    <section ref={ref} id="apply" className="relative py-32 md:py-48 px-6 md:px-16 border-t border-border overflow-hidden">
+    <section ref={ref} id="apply" className="relative py-32 md:py-48 px-6 md:px-16 overflow-hidden" style={{ background: 'hsl(var(--card))' }}>
       <motion.div
         className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-muted-foreground/10"
         style={{ scale: accentScale, opacity: accentOpacity }}
       />
 
-      <motion.p className="font-mono-label mb-12 relative z-10" style={{ opacity: labelOpacity }}>
+      {/* Subtle top border glow */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
+      <motion.p className="font-mono-label mb-12 relative z-10 text-primary" style={{ opacity: labelOpacity }}>
         004 — Join
       </motion.p>
 
@@ -48,7 +51,7 @@ const CTASection = () => {
       </motion.h2>
 
       <motion.p
-        className="text-foreground/70 max-w-lg mb-14 leading-relaxed text-base md:text-lg relative z-10"
+        className="text-foreground/80 max-w-lg mb-14 leading-relaxed text-base md:text-lg relative z-10"
         style={{ opacity: bodyOpacity, y: bodyY }}
       >
         We're looking for doers, not dreamers. If you're under 20 and 

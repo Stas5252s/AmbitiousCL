@@ -12,6 +12,9 @@ import ImageSection from "@/components/ImageSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import SectionTransition from "@/components/SectionTransition";
+import GlitchReveal from "@/components/GlitchReveal";
+import ParallaxStripes from "@/components/ParallaxStripes";
+import NumbersReveal from "@/components/NumbersReveal";
 
 const Index = () => {
   return (
@@ -19,19 +22,23 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <MarqueeStrip />
-      <SectionTransition variant="converge" />
+      <SectionTransition variant="glitch" />
       <ManifestoSection />
+      <SectionTransition variant="pulse-ring" />
       <MorphingDivider />
       <PillarsSection />
-      <SectionTransition variant="slash" />
+      <SectionTransition variant="shatter" />
       <StatsSection />
+      <NumbersReveal />
       <HorizontalReveal />
-      <SectionTransition variant="diamond" />
+      <SectionTransition variant="vortex" />
+      <GlitchReveal />
       <SpatialScrollSection />
       <StickyTextReveal />
-      <SectionTransition variant="converge" />
+      <SectionTransition variant="scanner" />
+      <ParallaxStripes />
       <ImageSection />
-      <SectionTransition variant="wipe" />
+      <SectionTransition variant="pulse-ring" />
       <CTASection />
       <Footer />
     </div>
