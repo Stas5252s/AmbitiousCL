@@ -9,30 +9,27 @@ const ImageSection = () => {
     offset: ["start end", "end start"],
   });
 
-  // Split reveal: images slide in from opposite sides
   const leftX = useTransform(scrollYProgress, [0, 0.3], ["-100%", "0%"]);
   const rightX = useTransform(scrollYProgress, [0.05, 0.35], ["100%", "0%"]);
   const imgOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
   const imgBlur = useTransform(scrollYProgress, [0, 0.25], [15, 0]);
 
-  // Wide image: dramatic scale-up from tiny
   const wideScale = useTransform(scrollYProgress, [0.35, 0.6], [0.3, 1]);
   const wideOpacity = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
   const wideBlur = useTransform(scrollYProgress, [0.35, 0.55], [20, 0]);
 
   const labelOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
-  // Text paragraph slides up
   const textY = useTransform(scrollYProgress, [0.6, 0.8], [60, 0]);
   const textOpacity = useTransform(scrollYProgress, [0.6, 0.75], [0, 1]);
 
   return (
-    <section ref={ref} id="network" className="py-32 md:py-48 px-6 md:px-16">
+    <section ref={ref} id="network" className="py-32 md:py-48 px-6 md:px-16 overflow-hidden">
       <motion.p className="font-mono-label mb-16" style={{ opacity: labelOpacity }}>
         003 — The Network
       </motion.p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-hidden">
         <motion.div
           className="aspect-[3/4] overflow-hidden"
           style={{
