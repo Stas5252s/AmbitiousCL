@@ -18,8 +18,8 @@ const CharRevealLine = ({
   return (
     <h2 className="text-headline text-foreground text-3xl md:text-5xl lg:text-6xl mb-4 flex flex-wrap">
       {chars.map((char, i) => {
-        const charStart = startAt + (i / totalChars) * (endAt - startAt) * 0.6;
-        const charEnd = Math.min(charStart + (endAt - startAt) * 0.3, 1);
+        const charStart = startAt + (i / totalChars) * (endAt - startAt) * 0.7;
+        const charEnd = Math.min(charStart + (endAt - startAt) * 0.25, endAt);
 
         return (
           <CharReveal
@@ -46,8 +46,8 @@ const CharReveal = ({
   start: number;
   end: number;
 }) => {
-  const clampedStart = Math.max(0, Math.min(start, 0.99));
-  const clampedEnd = Math.max(clampedStart + 0.001, Math.min(end, 1));
+  const clampedStart = Math.max(0, Math.min(start, 0.98));
+  const clampedEnd = Math.max(clampedStart + 0.001, Math.min(end, 0.99));
 
   const opacity = useTransform(scrollYProgress, [clampedStart, clampedEnd], [0.08, 1]);
   const y = useTransform(scrollYProgress, [clampedStart, clampedEnd], [8, 0]);
@@ -72,7 +72,7 @@ const ManifestoSection = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.7", "end 0.3"],
+    offset: ["start 0.85", "end 0.55"],
   });
 
   const lines = [
@@ -84,8 +84,8 @@ const ManifestoSection = () => {
 
   const lineCount = lines.length;
 
-  const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const labelOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const lineWidth = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
+  const labelOpacity = useTransform(scrollYProgress, [0, 0.08], [0, 1]);
 
   return (
     <section ref={ref} id="manifesto" className="py-32 md:py-48 px-6 md:px-16">
@@ -104,13 +104,13 @@ const ManifestoSection = () => {
             key={i}
             text={line}
             scrollYProgress={scrollYProgress}
-            startAt={i / lineCount}
-            endAt={Math.min((i + 1) / lineCount, 1)}
+            startAt={(i / lineCount) * 0.7}
+            endAt={Math.min(((i + 1) / lineCount) * 0.7 + 0.05, 0.75)}
           />
         ))}
       </div>
 
-      <motion.div className="mt-16 max-w-lg" style={{ opacity: useTransform(scrollYProgress, [0.85, 1], [0, 1]) }}>
+      <motion.div className="mt-16 max-w-lg" style={{ opacity: useTransform(scrollYProgress, [0.7, 0.85], [0, 1]) }}>
         <p className="text-muted-foreground leading-relaxed">
           Ambitious is a collective of teenagers who build real businesses, 
           forge genuine connections, and prove that the best time to start 
