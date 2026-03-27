@@ -1,165 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const TunnelRing = ({
-  scrollYProgress,
-  offset,
-  index,
-}: {
-  scrollYProgress: any;
-  offset: number;
-  index: number;
-}) => {
-  const ringZ = useTransform(scrollYProgress, [0, 1], [-400 - index * 600, 1200]);
-  const fadeIn = Math.min(offset + 0.08, 1);
-  const holdEnd = Math.min(offset + 0.25, 1);
-  const fadeOut = Math.min(offset + 0.35, 1);
-  const ringOpacity = useTransform(
-    scrollYProgress,
-    [offset, fadeIn, holdEnd, fadeOut],
-    [0, 0.12, 0.12, 0]
-  );
-  const scaleEnd = Math.min(offset + 0.3, 1);
-  const ringScale = useTransform(scrollYProgress, [offset, scaleEnd], [0.2, 3]);
-
-  return (
-    <motion.div
-      className="absolute border border-muted-foreground/20 rounded-none"
-      style={{
-        width: 300,
-        height: 300,
-        z: ringZ,
-        opacity: ringOpacity,
-        scale: ringScale,
-      }}
-    />
-  );
-};
-
-const ScrollIndicator = ({ scrollYProgress }: { scrollYProgress: any }) => {
-  const opacity = useTransform(scrollYProgress, [0, 0.05, 0.15], [1, 1, 0]);
-  return (
-    <motion.p className="absolute bottom-8 font-mono-label" style={{ opacity }}>
-      Scroll to enter
-    </motion.p>
-  );
-};
-
-const layers = [
-  { text: "AMBITION", depth: 800 },
-  { text: "STARTS", depth: 1600 },
-  { text: "HERE", depth: 2400 },
+const pillars = [
+  { number: "01", title: "BUILD", description: "Launch real products. Ship code. Create value." },
+  { number: "02", title: "EARN", description: "Revenue before graduation. No allowance needed." },
+  { number: "03", title: "CONNECT", description: "Network with builders, not followers." },
+  { number: "04", title: "LEAD", description: "Set the standard. Others follow." },
 ];
-
-const ZLayer = ({
-  text,
-  depth,
-  scrollYProgress,
-}: {
-  text: string;
-  depth: number;
-  scrollYProgress: any;
-}) => {
-  const startAppear = depth / 4000;
-  const endDisappear = Math.min(startAppear + 0.35, 1);
-  
-  const z = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [-depth, depth * 0.8]
-  );
-  const opacity = useTransform(
-    scrollYProgress,
-    [
-      Math.max(startAppear - 0.05, 0),
-      startAppear + 0.08,
-      endDisappear - 0.1,
-      endDisappear,
-    ],
-    [0, 1, 1, 0]
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [startAppear, endDisappear],
-    [0.5, 2.5]
-  );
-
-  return (
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center pointer-events-none"
-      style={{ z, opacity, scale }}
-    >
-      <span
-        className="text-display text-foreground/[0.07] whitespace-nowrap select-none"
-        style={{ fontSize: "clamp(4rem, 14vw, 12rem)" }}
-      >
-        {text}
-      </span>
-    </motion.div>
-  );
-};
-
-const FloatingShape = ({
-  scrollYProgress,
-  startOffset,
-  x,
-  y,
-  size,
-  type,
-}: {
-  scrollYProgress: any;
-  startOffset: number;
-  x: string;
-  y: string;
-  size: number;
-  type: "square" | "line" | "dot";
-}) => {
-  const z = useTransform(scrollYProgress, [0, 1], [-600 - startOffset * 1000, 800]);
-  const fadeEnd = Math.min(startOffset + 0.1, 1);
-  const holdEnd = Math.min(startOffset + 0.4, 1);
-  const disappearEnd = Math.min(startOffset + 0.55, 1);
-  const opacity = useTransform(
-    scrollYProgress,
-    [startOffset, fadeEnd, holdEnd, disappearEnd],
-    [0, 0.3, 0.3, 0]
-  );
-  const scaleEnd = Math.min(startOffset + 0.4, 1);
-  const scale = useTransform(scrollYProgress, [startOffset, scaleEnd], [0.3, 1.8]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 180 * (startOffset > 0.3 ? -1 : 1)]);
-
-  return (
-    <motion.div
-      className="absolute"
-      style={{
-        left: x,
-        top: y,
-        z,
-        opacity,
-        scale,
-        rotateZ: rotate,
-      }}
-    >
-      {type === "square" && (
-        <div
-          className="border border-muted-foreground/30"
-          style={{ width: size, height: size }}
-        />
-      )}
-      {type === "line" && (
-        <div
-          className="bg-muted-foreground/20"
-          style={{ width: 1, height: size }}
-        />
-      )}
-      {type === "dot" && (
-        <div
-          className="rounded-full bg-primary/20"
-          style={{ width: size, height: size }}
-        />
-      )}
-    </motion.div>
-  );
-};
 
 const SpatialScrollSection = () => {
   const ref = useRef(null);
@@ -168,52 +15,50 @@ const SpatialScrollSection = () => {
     offset: ["start start", "end end"],
   });
 
-  // Center crosshair that pulses
-  const crosshairOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 0.15, 0.15, 0]);
-  const crosshairScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 1.5]);
-
   return (
     <section ref={ref} className="relative h-[400vh]">
-      <div
-        className="sticky top-0 h-screen overflow-hidden flex items-center justify-center"
-        style={{ perspective: "1000px", perspectiveOrigin: "50% 50%" }}
-      >
-        {/* Center crosshair */}
-        <motion.div
-          className="absolute z-10 flex items-center justify-center"
-          style={{ opacity: crosshairOpacity, scale: crosshairScale }}
-        >
-          <div className="w-px h-16 bg-muted-foreground/30 absolute" />
-          <div className="h-px w-16 bg-muted-foreground/30 absolute" />
-        </motion.div>
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center">
+        <div className="w-full px-6 md:px-16">
+          <motion.p
+            className="font-mono-label mb-16"
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.08], [0, 1]) }}
+          >
+            002 — Pillars
+          </motion.p>
 
-        {/* Text layers flying through z-axis */}
-        {layers.map((layer) => (
-          <ZLayer
-            key={layer.text}
-            text={layer.text}
-            depth={layer.depth}
-            scrollYProgress={scrollYProgress}
-          />
-        ))}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+            {pillars.map((pillar, i) => {
+              const start = 0.05 + i * 0.18;
+              const end = start + 0.15;
+              const midStart = start + 0.05;
 
-        {/* Floating geometric shapes at different depths */}
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.05} x="15%" y="20%" size={80} type="square" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.15} x="75%" y="30%" size={120} type="line" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.25} x="25%" y="70%" size={60} type="square" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.35} x="80%" y="65%" size={10} type="dot" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.1} x="60%" y="15%" size={6} type="dot" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.45} x="10%" y="45%" size={150} type="line" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.3} x="85%" y="80%" size={40} type="square" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.5} x="45%" y="85%" size={8} type="dot" />
-        <FloatingShape scrollYProgress={scrollYProgress} startOffset={0.2} x="50%" y="10%" size={100} type="line" />
-
-        {/* Tunnel rings */}
-        {[0.1, 0.25, 0.4, 0.55, 0.7].map((offset, i) => (
-          <TunnelRing key={i} scrollYProgress={scrollYProgress} offset={offset} index={i} />
-        ))}
-
-        <ScrollIndicator scrollYProgress={scrollYProgress} />
+              return (
+                <motion.div
+                  key={pillar.number}
+                  className="relative"
+                  style={{
+                    opacity: useTransform(scrollYProgress, [start, end], [0, 1]),
+                    y: useTransform(scrollYProgress, [start, end], [80, 0]),
+                    filter: useTransform(
+                      useTransform(scrollYProgress, [start, end], [15, 0]),
+                      (v: number) => `blur(${v}px)`
+                    ),
+                  }}
+                >
+                  <motion.div
+                    className="w-px bg-foreground/15 mb-6"
+                    style={{ height: useTransform(scrollYProgress, [midStart, end], [0, 48]) }}
+                  />
+                  <span className="font-mono-label text-primary/60 text-xs block mb-3">{pillar.number}</span>
+                  <h3 className="text-display text-foreground mb-3" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
+                    {pillar.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -2,11 +2,8 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
 import ManifestoSection from "@/components/ManifestoSection";
-import PillarsSection from "@/components/PillarsSection";
-import StatsSection from "@/components/StatsSection";
-import MorphingDivider from "@/components/MorphingDivider";
-import HorizontalReveal from "@/components/HorizontalReveal";
 import SpatialScrollSection from "@/components/SpatialScrollSection";
+import StatsSection from "@/components/StatsSection";
 import StickyTextReveal from "@/components/StickyTextReveal";
 import ImageSection from "@/components/ImageSection";
 import CTASection from "@/components/CTASection";
@@ -15,6 +12,8 @@ import SectionTransition from "@/components/SectionTransition";
 import GlitchReveal from "@/components/GlitchReveal";
 import ParallaxStripes from "@/components/ParallaxStripes";
 import NumbersReveal from "@/components/NumbersReveal";
+import HorizontalReveal from "@/components/HorizontalReveal";
+import ZoomOnScroll from "@/components/ZoomOnScroll";
 
 const Index = () => {
   return (
@@ -24,21 +23,20 @@ const Index = () => {
       <MarqueeStrip />
       <SectionTransition variant="glitch" />
       <ManifestoSection />
-      <SectionTransition variant="pulse-ring" />
-      <MorphingDivider />
-      <PillarsSection />
+      <SectionTransition variant="waveform" />
+      <SpatialScrollSection />
       <SectionTransition variant="shatter" />
       <StatsSection />
       <NumbersReveal />
       <HorizontalReveal />
-      <SectionTransition variant="vortex" />
+      <SectionTransition variant="crosshair" />
       <GlitchReveal />
-      <SpatialScrollSection />
+      <ZoomOnScroll />
       <StickyTextReveal />
       <SectionTransition variant="scanner" />
       <ParallaxStripes />
       <ImageSection />
-      <SectionTransition variant="pulse-ring" />
+      <SectionTransition variant="waveform" />
       <CTASection />
       <Footer />
     </div>
