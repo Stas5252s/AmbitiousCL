@@ -76,9 +76,9 @@ const SpatialScrollSection = () => {
   const gridRotateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [3, 0, 0, -3]);
   const gridScale = useTransform(scrollYProgress, [0, 0.06, 0.92, 1], [0.92, 1, 1, 0.95]);
 
-  // Row 1 (cards 0-2): appear early, Row 2 (cards 3-5): appear after
-  const row1Range = [0.03, 0.25]; // row 1 fully visible by 25%
-  const row2Range = [0.25, 0.50]; // row 2 fully visible by 50%
+  // Both rows appear early so all 6 cards are visible together
+  const row1Range = [0.03, 0.15];
+  const row2Range = [0.12, 0.25];
 
   return (
     <section ref={ref} className="relative h-[450vh]">
