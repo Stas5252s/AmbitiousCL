@@ -249,16 +249,16 @@ const SpatialScrollSection = () => {
                   </motion.p>
 
                   <motion.div
-                    className="border-t border-foreground/10 pt-3"
+                    className="border-t border-foreground/10 pt-2"
                     style={{
                       opacity: useTransform(scrollYProgress, [cardEnd, statEnd], [0, 1]),
                       y: useTransform(scrollYProgress, [cardEnd, statEnd], [10, 0]),
                     }}
                   >
-                    <span className="text-display text-foreground text-xl md:text-2xl block tabular-nums">
+                    <span className="text-display text-foreground text-lg md:text-xl block tabular-nums">
                       {pillar.stat}
                     </span>
-                    <span className="font-mono-label text-[10px] text-muted-foreground mt-1 block">
+                    <span className="font-mono-label text-[9px] text-muted-foreground mt-0.5 block">
                       {pillar.statLabel}
                     </span>
                   </motion.div>
