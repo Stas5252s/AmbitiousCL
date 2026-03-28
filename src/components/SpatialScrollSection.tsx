@@ -184,7 +184,7 @@ const SpatialScrollSection = () => {
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10 md:gap-y-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-6 md:gap-y-8">
             {pillars.map((pillar, i) => {
               const isRow1 = i < 3;
               const rowIdx = isRow1 ? i : i - 3;
