@@ -215,7 +215,7 @@ const SpatialScrollSection = () => {
                 >
                   {/* Top line draws in */}
                   <motion.div
-                    className="h-px bg-foreground/20 mb-5"
+                    className="h-px bg-foreground/20 mb-3"
                     style={{
                       width: useTransform(scrollYProgress, [cardStart, cardEnd], ["0%", "100%"]),
                       transformOrigin: i % 2 === 0 ? "left" : "right",
@@ -223,16 +223,16 @@ const SpatialScrollSection = () => {
                   />
 
                   <motion.span
-                    className="font-mono-label text-foreground/15 text-[10px] block mb-3"
+                    className="font-mono-label text-foreground/15 text-[10px] block mb-1"
                     style={{ opacity: useTransform(scrollYProgress, [cardStart, cardEnd], [0, 0.6]) }}
                   >
                     {pillar.number}
                   </motion.span>
 
                   <motion.h3
-                    className="text-display text-foreground mb-3"
+                    className="text-display text-foreground mb-1"
                     style={{
-                      fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                      fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)",
                       scale: useTransform(scrollYProgress, [cardStart, cardEnd], [0.6, 1]),
                     }}
                   >
@@ -240,7 +240,7 @@ const SpatialScrollSection = () => {
                   </motion.h3>
 
                   <motion.p
-                    className="text-muted-foreground text-sm leading-relaxed mb-5"
+                    className="text-muted-foreground text-xs leading-relaxed mb-3"
                     style={{
                       opacity: useTransform(scrollYProgress, [cardStart + 0.02, cardEnd + 0.02], [0, 1]),
                     }}
