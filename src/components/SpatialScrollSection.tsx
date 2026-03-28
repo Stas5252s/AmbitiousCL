@@ -76,9 +76,9 @@ const SpatialScrollSection = () => {
   const gridRotateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [3, 0, 0, -3]);
   const gridScale = useTransform(scrollYProgress, [0, 0.06, 0.92, 1], [0.92, 1, 1, 0.95]);
 
-  // Row 1 (cards 0-2): appear early, Row 2 (cards 3-5): appear after
-  const row1Range = [0.03, 0.25]; // row 1 fully visible by 25%
-  const row2Range = [0.25, 0.50]; // row 2 fully visible by 50%
+  // Both rows appear early so all 6 cards are visible together
+  const row1Range = [0.03, 0.15];
+  const row2Range = [0.12, 0.25];
 
   return (
     <section ref={ref} className="relative h-[450vh]">
@@ -184,7 +184,7 @@ const SpatialScrollSection = () => {
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10 md:gap-y-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-6 md:gap-y-8">
             {pillars.map((pillar, i) => {
               const isRow1 = i < 3;
               const rowIdx = isRow1 ? i : i - 3;
@@ -215,7 +215,7 @@ const SpatialScrollSection = () => {
                 >
                   {/* Top line draws in */}
                   <motion.div
-                    className="h-px bg-foreground/20 mb-5"
+                    className="h-px bg-foreground/20 mb-3"
                     style={{
                       width: useTransform(scrollYProgress, [cardStart, cardEnd], ["0%", "100%"]),
                       transformOrigin: i % 2 === 0 ? "left" : "right",
@@ -223,16 +223,16 @@ const SpatialScrollSection = () => {
                   />
 
                   <motion.span
-                    className="font-mono-label text-foreground/15 text-[10px] block mb-3"
+                    className="font-mono-label text-foreground/15 text-[10px] block mb-1"
                     style={{ opacity: useTransform(scrollYProgress, [cardStart, cardEnd], [0, 0.6]) }}
                   >
                     {pillar.number}
                   </motion.span>
 
                   <motion.h3
-                    className="text-display text-foreground mb-3"
+                    className="text-display text-foreground mb-1"
                     style={{
-                      fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                      fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)",
                       scale: useTransform(scrollYProgress, [cardStart, cardEnd], [0.6, 1]),
                     }}
                   >
@@ -240,7 +240,7 @@ const SpatialScrollSection = () => {
                   </motion.h3>
 
                   <motion.p
-                    className="text-muted-foreground text-sm leading-relaxed mb-5"
+                    className="text-muted-foreground text-xs leading-relaxed mb-3"
                     style={{
                       opacity: useTransform(scrollYProgress, [cardStart + 0.02, cardEnd + 0.02], [0, 1]),
                     }}
@@ -249,16 +249,16 @@ const SpatialScrollSection = () => {
                   </motion.p>
 
                   <motion.div
-                    className="border-t border-foreground/10 pt-3"
+                    className="border-t border-foreground/10 pt-2"
                     style={{
                       opacity: useTransform(scrollYProgress, [cardEnd, statEnd], [0, 1]),
                       y: useTransform(scrollYProgress, [cardEnd, statEnd], [10, 0]),
                     }}
                   >
-                    <span className="text-display text-foreground text-xl md:text-2xl block tabular-nums">
+                    <span className="text-display text-foreground text-lg md:text-xl block tabular-nums">
                       {pillar.stat}
                     </span>
-                    <span className="font-mono-label text-[10px] text-muted-foreground mt-1 block">
+                    <span className="font-mono-label text-[9px] text-muted-foreground mt-0.5 block">
                       {pillar.statLabel}
                     </span>
                   </motion.div>
