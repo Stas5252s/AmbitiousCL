@@ -14,6 +14,8 @@ import ParallaxStripes from "@/components/ParallaxStripes";
 import NumbersReveal from "@/components/NumbersReveal";
 import HorizontalReveal from "@/components/HorizontalReveal";
 import ZoomOnScroll from "@/components/ZoomOnScroll";
+import PerspectiveWarp from "@/components/PerspectiveWarp";
+import SplitReveal from "@/components/SplitReveal";
 
 const Index = () => {
   return (
@@ -26,8 +28,10 @@ const Index = () => {
       <SectionTransition variant="waveform" />
       <SpatialScrollSection />
       <SectionTransition variant="shatter" />
+      <PerspectiveWarp />
       <StatsSection />
       <NumbersReveal />
+      <SplitReveal />
       <HorizontalReveal />
       <SectionTransition variant="crosshair" />
       <GlitchReveal />
