@@ -48,20 +48,10 @@ const pillars = [
 
 const SpatialScrollSection = () => {
   const ref = useRef(null);
-  const [activeIdx, setActiveIdx] = useState(0);
-
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const idx = Math.min(Math.floor(v * pillars.length), pillars.length - 1);
-    setActiveIdx(Math.max(0, idx));
-  });
-
-  // Giant background number
-  const counterOpacity = useTransform(scrollYProgress, [0, 0.04, 0.92, 1], [0, 0.04, 0.04, 0]);
 
   // Vertical progress rail
   const progressH = useTransform(scrollYProgress, [0.02, 0.9], ["0%", "100%"]);
