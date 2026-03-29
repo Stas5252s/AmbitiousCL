@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const pillars = [
   {
@@ -48,20 +48,10 @@ const pillars = [
 
 const SpatialScrollSection = () => {
   const ref = useRef(null);
-  const [activeIdx, setActiveIdx] = useState(0);
-
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const idx = Math.min(Math.floor(v * pillars.length), pillars.length - 1);
-    setActiveIdx(Math.max(0, idx));
-  });
-
-  // Giant background number
-  const counterOpacity = useTransform(scrollYProgress, [0, 0.04, 0.92, 1], [0, 0.04, 0.04, 0]);
 
   // Vertical progress rail
   const progressH = useTransform(scrollYProgress, [0.02, 0.9], ["0%", "100%"]);
@@ -84,18 +74,6 @@ const SpatialScrollSection = () => {
     <section ref={ref} className="relative h-[450vh]">
       <div className="sticky top-0 h-screen overflow-hidden flex items-center" style={{ perspective: "1200px" }}>
 
-        {/* Giant background counter */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-          style={{ opacity: counterOpacity }}
-        >
-          <span
-            className="text-display text-foreground tabular-nums"
-            style={{ fontSize: "clamp(18rem, 50vw, 40rem)" }}
-          >
-            {String(activeIdx + 1).padStart(2, "0")}
-          </span>
-        </motion.div>
 
         {/* Horizontal scanner beam */}
         <motion.div
@@ -147,15 +125,6 @@ const SpatialScrollSection = () => {
           002 — Pillars
         </motion.p>
 
-        {/* Counter display top right */}
-        <motion.div
-          className="absolute top-8 right-6 md:right-16 font-mono-label text-foreground/30"
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.04, 0.95, 1], [0, 1, 1, 0]) }}
-        >
-          <span className="text-foreground/60 tabular-nums">{String(activeIdx + 1).padStart(2, "0")}</span>
-          <span className="mx-1">/</span>
-          <span className="tabular-nums">{String(pillars.length).padStart(2, "0")}</span>
-        </motion.div>
 
         {/* Bottom progress bar */}
         <motion.div

@@ -9,13 +9,15 @@ import ImageSection from "@/components/ImageSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import SectionTransition from "@/components/SectionTransition";
-import GlitchReveal from "@/components/GlitchReveal";
 import ParallaxStripes from "@/components/ParallaxStripes";
 import NumbersReveal from "@/components/NumbersReveal";
 import HorizontalReveal from "@/components/HorizontalReveal";
 import ZoomOnScroll from "@/components/ZoomOnScroll";
 import PerspectiveWarp from "@/components/PerspectiveWarp";
-import SplitReveal from "@/components/SplitReveal";
+import MagneticLines from "@/components/MagneticLines";
+import TextCascade from "@/components/TextCascade";
+import DepthReveal from "@/components/DepthReveal";
+import InfinityWipe from "@/components/InfinityWipe";
 
 const Index = () => {
   return (
@@ -25,18 +27,19 @@ const Index = () => {
       <MarqueeStrip />
       <SectionTransition variant="glitch" />
       <ManifestoSection />
-      <SectionTransition variant="waveform" />
+      <InfinityWipe />
       <SpatialScrollSection />
       <SectionTransition variant="shatter" />
       <PerspectiveWarp />
       <StatsSection />
       <NumbersReveal />
-      <SplitReveal />
+      <MagneticLines />
       <HorizontalReveal />
       <SectionTransition variant="crosshair" />
-      <GlitchReveal />
+      <TextCascade />
       <ZoomOnScroll />
       <StickyTextReveal />
+      <DepthReveal />
       <SectionTransition variant="scanner" />
       <ParallaxStripes />
       <ImageSection />
