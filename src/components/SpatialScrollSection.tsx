@@ -74,18 +74,6 @@ const SpatialScrollSection = () => {
     <section ref={ref} className="relative h-[450vh]">
       <div className="sticky top-0 h-screen overflow-hidden flex items-center" style={{ perspective: "1200px" }}>
 
-        {/* Giant background counter */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-          style={{ opacity: counterOpacity }}
-        >
-          <span
-            className="text-display text-foreground tabular-nums"
-            style={{ fontSize: "clamp(18rem, 50vw, 40rem)" }}
-          >
-            {String(activeIdx + 1).padStart(2, "0")}
-          </span>
-        </motion.div>
 
         {/* Horizontal scanner beam */}
         <motion.div
