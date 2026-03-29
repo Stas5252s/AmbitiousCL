@@ -125,15 +125,6 @@ const SpatialScrollSection = () => {
           002 — Pillars
         </motion.p>
 
-        {/* Counter display top right */}
-        <motion.div
-          className="absolute top-8 right-6 md:right-16 font-mono-label text-foreground/30"
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.04, 0.95, 1], [0, 1, 1, 0]) }}
-        >
-          <span className="text-foreground/60 tabular-nums">{String(activeIdx + 1).padStart(2, "0")}</span>
-          <span className="mx-1">/</span>
-          <span className="tabular-nums">{String(pillars.length).padStart(2, "0")}</span>
-        </motion.div>
 
         {/* Bottom progress bar */}
         <motion.div
